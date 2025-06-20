@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoldTrail Smart Behavioral Intelligence: AI-Powered Real Estate CRM</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide:nth-child(n) {
+            animation-delay: calc(n * 0.1s);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 25px 0;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .chart-large {
+            height: 500px;
+        }
+
+        .chart-medium {
+            height: 350px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .metric-value {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .metric-label {
+            font-size: 1em;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            color: white;
+            border-left: 6px solid #2E7D32;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .roi-card {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .workflow-step {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px;
+            position: relative;
+            font-size: 1.2em;
+        }
+
+        .workflow-step::after {
+            content: attr(data-step);
+            position: absolute;
+            bottom: -40px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            width: 140px;
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #2c3e50;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #667eea;
+            transform: scale(1.2);
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .tech-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .integration-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .integration-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .chart-container {
+                height: 300px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .workflow-steps {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <div class="nav-dot active" onclick="scrollToSlide(0)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(1)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(2)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(3)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(5)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(6)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(7)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(8)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(9)"></div>
+    </div>
+
+    <div class="presentation-container">
+        <!-- Slide 1: Title & Executive Summary -->
+        <div class="slide">
+            <h1>BoldTrail Smart Behavioral Intelligence</h1>
+            <h2 style="text-align: center; border: none; margin-bottom: 30px; color: #667eea;">AI-Powered Real Estate CRM Revolution</h2>
+            
+            <div class="highlight-box">
+                <h3 style="color: white; margin-bottom: 15px;">🚀 Breakthrough Technology</h3>
+                <p><strong>BoldTrail's Smart Behavioral Intelligence delivers 10x higher engagement</strong> through AI-powered automation that responds to lead behaviors in real-time. The system automatically tracks behavioral patterns like viewing 5+ properties in 24 hours and triggers intelligent responses that drive 5-10X higher engagement rates compared to traditional CRM approaches.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">10x</div>
+                    <div class="metric-label">Higher Engagement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">24/7</div>
+                    <div class="metric-label">AI Monitoring</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">400K+</div>
+                    <div class="metric-label">Active Users</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Uptime</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Behavioral Intelligence System -->
+        <div class="slide">
+            <h2>How Behavioral Intelligence Transforms Lead Engagement</h2>
+            
+            <div class="workflow-steps">
+                <div class="workflow-step" data-step="Behavioral Monitoring">1</div>
+                <div class="workflow-step" data-step="AI Pattern Recognition">2</div>
+                <div class="workflow-step" data-step="Automated Triggers">3</div>
+                <div class="workflow-step" data-step="Personalized Response">4</div>
+                <div class="workflow-step" data-step="Continuous Learning">5</div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="behaviorChart"></canvas>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎯 Intelligent Triggers</h3>
+                    <p>Automatically responds when contacts visit websites 5+ times in 7 days or favorite properties</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🤖 Machine Learning</h3>
+                    <p>Analyzes historical data patterns to predict lead conversion likelihood</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Real-time Response</h3>
+                    <p>24/7 monitoring ensures no high-intent lead goes unnoticed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Technical Architecture -->
+        <div class="slide">
+            <h2>Technical Architecture & Real-time Processing</h2>
+            
+            <div class="chart-container">
+                <canvas id="architectureChart"></canvas>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <h3>🌐 Cloud-Based Architecture</h3>
+                    <p>Modern, scalable platform with minimal latency</p>
+                </div>
+                <div class="tech-item">
+                    <h3>📊 Behavioral Data Points</h3>
+                    <p>Comprehensive tracking across all touchpoints</p>
+                </div>
+                <div class="tech-item">
+                    <h3>🔄 Automated Validation</h3>
+                    <p>Real-time data processing and enrichment</p>
+                </div>
+                <div class="tech-item">
+                    <h3>🎯 Predictive Analytics</h3>
+                    <p>AI-powered lead scoring and prioritization</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3 style="color: white;">📈 Behavioral Data Tracking</h3>
+                <p>The system monitors website visit frequency, property viewing patterns, email engagement, IDX interactions, and multi-channel communication patterns to create comprehensive behavioral profiles.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Performance Metrics -->
+        <div class="slide">
+            <h2>Proven ROI Through Quantifiable Improvements</h2>
+            
+            <div class="chart-container chart-large">
+                <canvas id="performanceChart"></canvas>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">3min</div>
+                    <div class="metric-label">Response Time</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">35%</div>
+                    <div class="metric-label">Technology Cost Savings</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">50%+</div>
+                    <div class="metric-label">Workload Reduction</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5-10x</div>
+                    <div class="metric-label">Engagement Boost</div>
+                </div>
+            </div>
+
+            <div class="roi-card">
+                <h3>🏆 Record-Breaking Results</h3>
+                <p><strong>Major brokerages like RE/MAX report significant improvements in lead conversion rates with record-breaking technology adoption and strengthened agent retention through improved productivity.</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 5: First-Time Homebuyers & Social Media -->
+        <div class="slide">
+            <h2>Specialized Solutions for Modern Real Estate</h2>
+            
+            <div class="chart-container">
+                <canvas id="segmentChart"></canvas>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🏠 First-Time Homebuyers</h3>
+                    <p>Automated educational nurturing sequences triggered by specific search patterns with CoreHome integration</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Social Media Integration</h3>
+                    <p>Seamless Facebook and Instagram lead capture with behavioral intelligence across social platforms</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ 60-Second Landing Pages</h3>
+                    <p>Custom landing pages generated instantly for social campaigns with QR code mobile access</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Dynamic Content Blocks</h3>
+                    <p>Customized communications matching buyer experience levels and journey stages</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3 style="color: white;">🔄 Multi-Channel Intelligence</h3>
+                <p>Social media leads enter the same sophisticated behavioral tracking system with automated responses tailored to their originating platform and subsequent behaviors.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Integration Ecosystem -->
+        <div class="slide">
+            <h2>Comprehensive Integration Ecosystem</h2>
+            
+            <div class="chart-container">
+                <canvas id="integrationChart"></canvas>
+            </div>
+
+            <div class="integration-list">
+                <div class="integration-item">
+                    <h3>🔗 RESTful API</h3>
+                    <p>Secure token-based authentication with 3 API tokens</p>
+                </div>
+                <div class="integration-item">
+                    <h3>🌐 Native Integrations</h3>
+                    <p>Google & Microsoft Office 365, MLS data sync</p>
+                </div>
+                <div class="integration-item">
+                    <h3>📱 Social Platforms</h3>
+                    <p>Facebook, Instagram, and marketing automation</p>
+                </div>
+                <div class="integration-item">
+                    <h3>🔄 Webhook System</h3>
+                    <p>Real-time data transfer with customizable parameters</p>
+                </div>
+                <div class="integration-item">
+                    <h3>⚡ API Nation</h3>
+                    <p>Zapier-style connections to hundreds of tools</p>
+                </div>
+                <div class="integration-item">
+                    <h3>📊 Developer Portal</h3>
+                    <p>Comprehensive API documentation and support</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3 style="color: white;">🎯 Central Nervous System</h3>
+                <p>Businesses can maintain existing technology investments while leveraging BoldTrail's behavioral intelligence as the central nervous system for lead management.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Analytics & Business Intelligence -->
+        <div class="slide">
+            <h2>Analytics & Reporting: Actionable Business Intelligence</h2>
+            
+            <div class="chart-container">
+                <canvas id="analyticsChart"></canvas>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📊 Real-time Activity Feeds</h3>
+                    <p>Live updates on lead behaviors with comprehensive dashboards</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔥 Heat Maps</h3>
+                    <p>Visualize engagement levels across contact database</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Predictive Analytics</h3>
+                    <p>Machine learning forecasts which leads are most likely to convert</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📈 Custom Reports</h3>
+                    <p>Segment contacts by behavioral criteria with advanced filtering</p>
+                </div>
+            </div>
+
+            <div class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Analytics Feature</th>
+                        <th>Real-time Capability</th>
+                        <th>Predictive Power</th>
+                        <th>Business Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Live Activity Feed</td>
+                        <td>Immediate</td>
+                        <td>High</td>
+                        <td>Instant Response</td>
+                    </tr>
+                    <tr>
+                        <td>Engagement Heat Maps</td>
+                        <td>Real-time</td>
+                        <td>Medium</td>
+                        <td>Strategic Planning</td>
+                    </tr>
+                    <tr>
+                        <td>Conversion Forecasting</td>
+                        <td>Continuous</td>
+                        <td>Very High</td>
+                        <td>Resource Allocation</td>
+                    </tr>
+                    <tr>
+                        <td>Behavioral Segmentation</td>
+                        <td>Dynamic</td>
+                        <td>High</td>
+                        <td>Targeted Campaigns</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 8: Competitive Positioning -->
+        <div class="slide">
+            <h2>Market Leadership Through Advanced AI</h2>
+            
+            <div class="chart-container">
+                <canvas id="competitiveChart"></canvas>
+            </div>
+
+            <div class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Native AI</th>
+                        <th>Behavioral Intelligence</th>
+                        <th>Engagement Improvement</th>
+                        <th>Market Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>BoldTrail</strong></td>
+                        <td>Advanced</td>
+                        <td>Sophisticated</td>
+                        <td>5-10X</td>
+                        <td>AI Leader</td>
+                    </tr>
+                    <tr>
+                        <td>Follow Up Boss</td>
+                        <td>Third-party</td>
+                        <td>Basic</td>
+                        <td>2-3X</td>
+                        <td>Usability Focus</td>
+                    </tr>
+                    <tr>
+                        <td>Chime (Lofty)</td>
+                        <td>Good</td>
+                        <td>Moderate</td>
+                        <td>3-4X</td>
+                        <td>Higher Price Point</td>
+                    </tr>
+                    <tr>
+                        <td>KvCore</td>
+                        <td>Consolidating</td>
+                        <td>Being Enhanced</td>
+                        <td>Variable</td>
+                        <td>Integration Phase</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="roi-card">
+                <h3>🏆 Key Differentiator</h3>
+                <p><strong>BoldTrail's native AI capabilities deliver 5-10X engagement improvements without requiring additional third-party tools or integrations.</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Investment & Pricing -->
+        <div class="slide">
+            <h2>Investment Considerations & ROI Structure</h2>
+            
+            <div class="chart-container">
+                <canvas id="pricingChart"></canvas>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">$499</div>
+                    <div class="metric-label">Monthly Starting Price</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$999</div>
+                    <div class="metric-label">Setup Fee</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">2-3</div>
+                    <div class="metric-label">Days to Setup</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">35%</div>
+                    <div class="metric-label">Average Cost Savings</div>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📚 Comprehensive Training</h3>
+                    <p>Daily onboarding workshops, dedicated adoption specialists, free lead configuration</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 6-Step Onboarding</h3>
+                    <p>Structured implementation process with dedicated support specialists</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💰 Cost Consolidation</h3>
+                    <p>Eliminates need for multiple separate tools, resulting in overall savings</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📈 Proven ROI</h3>
+                    <p>Strong business case supported by quantifiable performance metrics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Future Innovations & Conclusion -->
+        <div class="slide">
+            <h2>Future Innovations & Strategic Recommendations</h2>
+            
+            <div class="chart-container">
+                <canvas id="innovationChart"></canvas>
+            </div>
+
+            <div class="highlight-box">
+                <h3 style="color: white;">🚀 Recent Innovations</h3>
+                <p><strong>March 2025 ListAssist Acquisition:</strong> Winner of Inman's "Top Real Estate AI Startup" award brings natural language search and automated listing descriptions. G2 Spring 2025 awards for "Real Estate CRM Leader" and "Fastest Implementation" validate market position.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎯 Ideal Candidates</h3>
+                    <ul style="margin-top: 10px;">
+                        <li>Growth-oriented real estate organizations</li>
+                        <li>Teams handling high lead volumes</li>
+                        <li>Brokerages prioritizing lead conversion optimization</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Success Factors</h3>
+                    <ul style="margin-top: 10px;">
+                        <li>Commitment to proper implementation</li>
+                        <li>Investment in comprehensive training</li>
+                        <li>Focus on AI-driven competitive advantage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roi-card">
+                <h3>🌟 Paradigm Shift Conclusion</h3>
+                <p><strong>BoldTrail's Smart Behavioral Intelligence represents a paradigm shift from reactive manual processes to proactive AI-driven engagement. The combination of proven 5-10X engagement improvements, comprehensive integration capabilities, and sophisticated behavioral automation presents a compelling investment opportunity for organizations ready to leverage artificial intelligence for competitive advantage.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Behavioral Intelligence Chart
+        const behaviorCtx = document.getElementById('behaviorChart').getContext('2d');
+        new Chart(behaviorCtx, {
+            type: 'line',
+            data: {
+                labels: ['Initial Contact', 'Website Visits', 'Property Views', 'Favorites Added', 'Inquiries', 'Conversion'],
+                datasets: [{
+                    label: 'Traditional CRM',
+                    data: [100, 60, 35, 15, 8, 3],
+                    borderColor: '#ddd',
+                    backgroundColor: 'rgba(221, 221, 221, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'BoldTrail AI',
+                    data: [100, 85, 70, 55, 35, 25],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#667eea'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Lead Engagement Journey: Traditional vs AI-Powered', font: { size: 16 }}
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Lead Retention (%)' }
+                    }
+                }
+            }
+        });
+
+        // Technical Architecture Chart
+        const architectureCtx = document.getElementById('architectureChart').getContext('2d');
+        new Chart(architectureCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Behavioral Monitoring', 'AI/ML Processing', 'Real-time Triggers', 'Multi-channel Response', 'Analytics & Reporting'],
+                datasets: [{
+                    data: [25, 20, 20, 20, 15],
+                    backgroundColor: ['#667eea', '#764ba2', '#4CAF50', '#FF9800', '#9C27B0'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Smart Behavioral Intelligence Architecture', font: { size: 16 }},
+                    legend: { position: 'right' }
+                }
+            }
+        });
+
+        // Performance Metrics Chart
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(performanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Engagement Rate', 'Response Time', 'Lead Conversion', 'Time Savings', 'Cost Reduction'],
+                datasets: [{
+                    label: 'Improvement Factor',
+                    data: [10, 8, 6, 2, 1.35],
+                    backgroundColor: ['#667eea', '#764ba2', '#4CAF50', '#FF9800', '#9C27B0'],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Quantifiable Performance Improvements', font: { size: 16 }},
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Improvement Multiplier (X)' }
+                    }
+                }
+            }
+        });
+
+        // Market Segments Chart
+        const segmentCtx = document.getElementById('segmentChart').getContext('2d');
+        new Chart(segmentCtx, {
+            type: 'radar',
+            data: {
+                labels: ['First-Time Buyers', 'Social Media Leads', 'Repeat Customers', 'Luxury Market', 'Investor Clients', 'Referral Network'],
+                datasets: [{
+                    label: 'Engagement Effectiveness',
+                    data: [95, 90, 85, 80, 75, 85],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    pointBackgroundColor: '#667eea',
+                    pointRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'AI Effectiveness by Market Segment', font: { size: 16 }}
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Integration Ecosystem Chart
+        const integrationCtx = document.getElementById('integrationChart').getContext('2d');
+        new Chart(integrationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Native APIs', 'MLS Systems', 'Social Platforms', 'Email/SMS', 'Analytics Tools', 'Third-party Apps'],
+                datasets: [{
+                    label: 'Integration Depth Score',
+                    data: [95, 90, 85, 92, 88, 80],
+                    backgroundColor: '#667eea',
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Integration Ecosystem Capabilities', font: { size: 16 }},
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Integration Quality Score' }
+                    }
+                }
+            }
+        });
+
+        // Analytics Dashboard Chart
+        const analyticsCtx = document.getElementById('analyticsChart').getContext('2d');
+        new Chart(analyticsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Real-time Monitoring', 'Behavioral Analysis', 'Predictive Scoring', 'Custom Reporting', 'Heat Map Visualization', 'Trend Analysis'],
+                datasets: [{
+                    label: 'Feature Capability (%)',
+                    data: [98, 95, 92, 88, 85, 90],
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 8,
+                    pointBackgroundColor: '#4CAF50'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Analytics & Business Intelligence Capabilities', font: { size: 16 }}
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Capability Score (%)' }
+                    }
+                }
+            }
+        });
+
+        // Competitive Positioning Chart
+        const competitiveCtx = document.getElementById('competitiveChart').getContext('2d');
+        new Chart(competitiveCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'BoldTrail',
+                    data: [{x: 95, y: 90}],
+                    backgroundColor: '#667eea',
+                    pointRadius: 15
+                }, {
+                    label: 'Follow Up Boss',
+                    data: [{x: 65, y: 95}],
+                    backgroundColor: '#4CAF50',
+                    pointRadius: 12
+                }, {
+                    label: 'Chime (Lofty)',
+                    data: [{x: 75, y: 70}],
+                    backgroundColor: '#FF9800',
+                    pointRadius: 12
+                }, {
+                    label: 'KvCore',
+                    data: [{x: 70, y: 75}],
+                    backgroundColor: '#9C27B0',
+                    pointRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Competitive Position: AI Capabilities vs Market Presence', font: { size: 16 }}
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'AI/Behavioral Intelligence Score' },
+                        min: 0,
+                        max: 100
+                    },
+                    y: {
+                        title: { display: true, text: 'Market Presence Score' },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Pricing & ROI Chart
+        const pricingCtx = document.getElementById('pricingChart').getContext('2d');
+        new Chart(pricingCtx, {
+            type: 'line',
+            data: {
+                labels: ['Month 1', 'Month 3', 'Month 6', 'Month 12', 'Month 18', 'Month 24'],
+                datasets: [{
+                    label: 'Cumulative Investment',
+                    data: [1498, 4494, 8988, 17976, 26964, 35952],
+                    borderColor: '#f44336',
+                    backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                    fill: false
+                }, {
+                    label: 'Cumulative ROI',
+                    data: [0, 2000, 8000, 25000, 45000, 70000],
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Investment vs ROI Timeline', font: { size: 16 }}
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Value ($)' }
+                    }
+                }
+            }
+        });
+
+        // Innovation Timeline Chart
+        const innovationCtx = document.getElementById('innovationChart').getContext('2d');
+        new Chart(innovationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['ListAssist AI', 'G2 Awards', 'Unite Conference', 'Unified Platform', 'Behavioral Intelligence', 'Future Enhancements'],
+                datasets: [{
+                    label: 'Innovation Impact Score',
+                    data: [95, 85, 80, 90, 98, 85],
+                    backgroundColor: ['#667eea', '#764ba2', '#4CAF50', '#FF9800', '#9C27B0', '#e91e63'],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Innovation Roadmap & Market Impact', font: { size: 16 }},
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Innovation Impact Score' }
+                    }
+                }
+            }
+        });
+
+        // Navigation functionality
+        function scrollToSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const navDots = document.querySelectorAll('.nav-dot');
+            
+            slides[index].scrollIntoView({ behavior: 'smooth' });
+            
+            navDots.forEach(dot => dot.classList.remove('active'));
+            navDots[index].classList.add('active');
+        }
+
+        // Update active nav dot on scroll
+        window.addEventListener('scroll', () => {
+            const slides = document.querySelectorAll('.slide');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+
+            slides.forEach((slide, index) => {
+                const slideTop = slide.offsetTop;
+                const slideBottom = slideTop + slide.offsetHeight;
+
+                if (scrollPos >= slideTop && scrollPos <= slideBottom) {
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    if (navDots[index]) navDots[index].classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
